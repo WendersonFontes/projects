@@ -21,7 +21,6 @@ class Venda:
 def random_date(start_date, end_date):
     return start_date + timedelta(seconds=random.randint(0, int((end_date - start_date).total_seconds())))
 
-# Lista de produtos
 produtos = [
     Produto("Caneta", 2.5),
     Produto("Caderno", 10.0),
@@ -47,18 +46,13 @@ produtos = [
     Produto("Fita Adesiva", 1.8),
 ]
 
-
-# Configuração do período de vendas (1 ano)
 data_inicio = datetime(2023, 1, 1)
 data_fim = datetime(2023, 12, 31)
 
-# Nome do arquivo CSV
 nome_arquivo = "vendas_papelaria.csv"
 
-# Lista para armazenar as instâncias de Venda
 vendas = []
 
-# Gerar dados de vendas variáveis para cada produto
 for produto in produtos:
     for _ in range(365):
         data_venda = random_date(data_inicio, data_fim)
@@ -66,14 +60,11 @@ for produto in produtos:
         venda = Venda(produto, data_venda, quantidade)
         vendas.append(venda)
 
-# Abrir o arquivo CSV para escrita
 with open(nome_arquivo, mode='w', newline='') as arquivo_csv:
     escritor_csv = csv.writer(arquivo_csv)
     
-    # Escrever o cabeçalho no arquivo
     escritor_csv.writerow(["Date", "Produto", "Quantidade", "Preco Unitario", "Total"])
     
-    # Escrever os dados de venda no arquivo
     for venda in vendas:
         escritor_csv.writerow(venda.to_csv_row())
 
